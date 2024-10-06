@@ -34,6 +34,8 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
+    'apps.blog',
+    'apps.category'
 
 ]
 
@@ -57,13 +59,13 @@ CKEDITOR_CONFIGS = {
             ['Link', 'Unlink'],
             ['RemoveFormat', 'Source']
         ],
-        'height': 300,
-        'width': 300,
+        # 'filebrowserUploadUrl': '/ckeditor/upload/',  # URL para subir archivos
+        # 'filebrowserBrowseUrl': '/ckeditor/browse/',  # URL para explorar archivos
         'autoparagraph':False
 
     },
 }
-CKEDITOR_UPLOAD_PATH = "/media/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -130,9 +132,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
