@@ -12,6 +12,7 @@ import Blog from "containers/pages/blog";
 import Contactus from "containers/pages/contactus";
 import About from "containers/pages/about";
 import Product from "containers/pages/product";
+import Category from "containers/pages/category"
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
         <Route path="/blog" element={< Blog />} />
         <Route path="/contactanos" element={< Contactus />} />
         <Route path="/producto" element={< Product />} />
+        
+        <Route path="/category/:slug" element={<Category />} />
 
 
 

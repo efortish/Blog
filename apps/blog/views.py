@@ -113,7 +113,7 @@ class SearchBlogView(APIView):
             Q(category__name__icontains=search_term)
         )
 
-        paginator = SmallSetPagination()
+        paginator = LargeSetPagination()
         results = paginator.paginate_queryset(matches, request)
 
         serializer = PostListSerializer(results, many=True)

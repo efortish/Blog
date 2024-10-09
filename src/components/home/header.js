@@ -11,7 +11,7 @@ function Header(){
 
     return (
         <main>
-        <div className="relative px-6 lg:px-8">
+        <div className="relative px-6 lg:px-8 z-20">
           <div className="mx-auto max-w-3xl pt-10 pb-32 sm:pt-24 sm:pb-40">
             <div>
               <div className="hidden sm:mb-8 sm:flex sm:justify-center">
@@ -25,9 +25,9 @@ function Header(){
                   </span>
                 </div>
               </div>
-              <div>
+              <div className="">
                 <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
-                  Om hace que la vida de tu peludito sea más <span></span>
+                  Om hace que la vida de tu peludito sea más <br></br>
                   <div className="inline"style={{color:'green', fontWeigth:'bold'}}>
                     <Typewriter
                             words={['feliz.', 'saludable.', 'tranquila.']}
