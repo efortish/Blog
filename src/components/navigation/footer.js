@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import logooo from 'assets/img/logoo.png'
-
+import ompets from "assets/img/ompets.png"
 
 const navigation = {
     solutions: [
@@ -103,7 +103,7 @@ function Footer(){
             <div className="space-y-8 xl:col-span-1">
               <img
                 className="h-10"
-                src={logooo}
+                src={ompets}
                 alt="Logo"
               />
               <p className="text-base text-gray-500">

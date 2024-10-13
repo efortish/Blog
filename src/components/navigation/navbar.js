@@ -9,49 +9,13 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import logooo from 'assets/img/logoo.png'
 import whatsapp from 'assets/img/whatsapp2.gif'
 import blog from "containers/pages/blog"
+import ompets from "assets/img/ompets.png"
+import logosinpets from "assets/img/logosinpets.jpeg"
 
 
 
 
-// Popover options
-// const solutions = [
-//   {
-//     name: 'Casos',
-//     description: 'Measure actions your users take',
-//     href: '/casos',
-//     icon: IconOne,
-//   },
-//   {
-//     name: 'Servicios',
-//     description: 'Create your own targeted content',
-//     href: '/servicios',
-//     icon: IconTwo,
-//   },
-//   {
-//     name: 'Nosotros',
-//     description: 'Keep track of your growth',
-//     href: '/nosotros',
-//     icon: IconThree,
-//   },
-//   {
-//     name: 'Carreras',
-//     description: 'Keep track of your growth',
-//     href: '/carreras',
-//     icon: IconThree,
-//   },
-//   {
-//     name: 'Blog',
-//     description: 'Keep track of your growth',
-//     href: '/blog',
-//     icon: IconThree,
-//   },
-//   {
-//     name: 'Contacto',
-//     description: 'Keep track of your growth',
-//     href: '/contacto',
-//     icon: IconThree,
-//   },
-// ]
+
 
 function NavBar(){
 
@@ -80,7 +44,7 @@ function NavBar(){
         
         <div className="-ml-5 -mt-2 hidden lg:flex flex-wrap items-center justify-between sm:flex-nowrap md:px-4 px-2">
           <Link to='/' className="">
-            <img src={logooo} 
+            <img src={ompets} 
             width={80}
             height={70}
             alt="Logo"
@@ -104,7 +68,7 @@ function NavBar(){
         </div>
         <div className="-ml-5 -mt-2 lg:hidden flex flex-wrap items-center justify-between sm:flex-nowrap md:px-4 px-2 z-40">
           <Link to='/' className="ml-4 mt-3">
-            <img src={logooo} 
+            <img src={ompets} 
             width={80}
             height={70}
             alt="Logo"
