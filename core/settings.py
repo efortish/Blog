@@ -203,3 +203,12 @@ if not DEBUG:
         "default": env.db("DATABASE_URL"),
     }
     DATABASES ["default"]["ATOMIC_REQUESTS"] = True
+
+
+
+#TEST SUPER USUARIO
+from django.contrib.auth.models import User
+
+# Crear superusuario solo si no existe ya
+if not User.objects.filter(username='admin').exists():
+    User.objects.create_superuser('root', 'root@example.com', 'root1999$.')
