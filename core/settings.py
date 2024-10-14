@@ -108,20 +108,20 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # ESTA ES LA DEL LOCALHOST !!!!
-DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': BASE_DIR / 'db.sqlite3',
-     }
- }
-
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         # Replace this value with your local database's connection string.
-#         default='postgresql://root:OoDQpkzM0micrVlyLA7mGBJK0g2VALb2@dpg-cs6l7l3qf0us73efaqvg-a/omdb_qfbc',
-#         conn_max_age=600
-#     )
-# }
+#      'default': {
+#          'ENGINE': 'django.db.backends.sqlite3',
+#          'NAME': BASE_DIR / 'db.sqlite3',
+#      }
+#  }
+
+DATABASES = {
+     'default': dj_database_url.config(
+         # Replace this value with your local database's connection string.
+         default=os.environ.get('DATABASE_URL'),
+         conn_max_age=600
+     )
+ }
 
 
 # Password validation
