@@ -206,13 +206,5 @@ if not DEBUG:
 
 
 
-#TEST SUPER USUARIO
 
 
-# Crear superusuario solo si no existe ya
-def get_user_model():
-    from django.contrib.auth.models import User
-    if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('root', 'root@example.com', 'root1999$.')
-
-get_user_model()
