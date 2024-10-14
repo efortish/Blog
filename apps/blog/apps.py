@@ -5,5 +5,5 @@ class BlogConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'apps.blog'
 
-def ready(self):
-        from . import signals
+#def ready(self):
+   #     from . import signals
