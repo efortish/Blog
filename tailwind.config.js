@@ -6,8 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        "green-button":'#DAF7A6',
+        "green-button":'#8fc79a',
         "green-button-2":'#7fb176',
+        "green-summer3": '#5E9387',
+        "green-summer4": '#cee9b6',
       }
     },
     boxShadow: {

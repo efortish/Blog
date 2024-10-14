@@ -1,12 +1,13 @@
 import { Typewriter } from "react-simple-typewriter"
-
+import { NavLink, Link } from "react-router-dom"
 
 
 
 
 
 function Header(){
-
+  
+  
     
 
     return (
@@ -18,7 +19,7 @@ function Header(){
                 <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                   <span className="text-gray-600">
                     Testimonios de usuarios de Om pets.{' '}
-                    <a href="/blog" className="font-semibold text-indigo-600">
+                    <a href="/blog/cbd" className="font-semibold text-pink-500">
                       <span className="absolute inset-0" aria-hidden="true" />
                       Leer más <span aria-hidden="true">&rarr;</span>
                     </a>
@@ -28,7 +29,7 @@ function Header(){
               <div className="">
                 <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
                   Om hace que la vida de tu peludito sea más <br></br>
-                  <div className="inline"style={{color:'green', fontWeigth:'bold'}}>
+                  <div className="inline"style={{color:'#8EC699', fontWeigth:'bold'}}>
                     <Typewriter
                             words={['feliz.', 'saludable.', 'tranquila.']}
                             loop={0}
@@ -48,8 +49,8 @@ function Header(){
                 </p>
                 <div className="mt-8 flex gap-x-4 sm:justify-center">
                   <a
-                    href="#"
-                    className="inline-block rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
+                    href="/contacto"
+                    className="inline-block rounded-lg bg-pink-300 px-4 py-1.5 text-base font-semibold leading-7 text-black shadow-sm ring-1 ring-pink-5bg-pink-500 hover:bg-pink-300 hover:ring-pink-400"
                   >
                     Comprar
                     <span className="text-indigo-200" aria-hidden="true">
@@ -57,8 +58,8 @@ function Header(){
                     </span>
                   </a>
                   <a
-                    href="#"
-                    className="inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 text-gray-900 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
+                    href="/contacto"
+                    className="inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 text-pink-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
                   >
                     Chatea con nosotros
                     <span className="text-gray-400" aria-hidden="true">

@@ -58,7 +58,7 @@ function NavBar(){
             
           <Link
               to="/contacto"
-              className="inline-flex ml-12 items-center rounded-md border border-transparent bg-green-button px-6 py-3 text-base font-medium text-black shadow-sm hover:bg-gray-700 hover:text-white transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+              className="inline-flex ml-12 items-center rounded-md border border-transparent bg-green-summer4 px-6 py-3 text-base font-medium text-black shadow-sm hover:bg-gray-700 hover:text-white transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
 
               Contáctanos
               <img src={whatsapp} className="w-7 h-7 mt-1 ml-2" alt="">
