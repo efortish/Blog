@@ -183,10 +183,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-#CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
-CORS_ORIGIN_WHITELIST = [
-    'https://blog-m2cu.onrender.com',
-]
+CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV', default=[])
 
 #Email
