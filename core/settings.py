@@ -44,7 +44,8 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'rest_framework',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'storages',
 
 ]
 
@@ -72,7 +73,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -208,39 +209,69 @@ CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 
 if not DEBUG:
     
-    ALLOWED_HOSTS=env.list("ALLOWED_HOSTS_DEPLOY")
-    CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
-    CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
+        ALLOWED_HOSTS=env.list("ALLOWED_HOSTS_DEPLOY")
+        CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
+        CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
+        
+        DATABASES = {
+            "default": env.db("DATABASE_URL"),
+        }
+        DATABASES ["default"]["ATOMIC_REQUESTS"] = True
+
+        #AWS django-ckeditor will not work with s3 through django-storages without this line
+        AWS_QUERYSTRING_AUTH = False
+        AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+        AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+
+        AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+        AWS_S3_FILE_OVERWRITE = False
+        AWS_S3_OBJECT_PARAMETERS = {'CacheControl':'max-age-86400'}
+        AWS_DEFAULT_ACL='public-read'
+
+        #S3 static settings
+
+        #STATIC_LOCATION = 'static'
+        STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+        #STATICFILES_STORAGE = 'storages.backends.s3.S3Storage'
+
+
+        STORAGES = {
+                    "default": {
+                        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+                    },
+                    #css y js
+                    "staticfiles": {
+                        'BACKEND': 'storages.backends.s3boto3.S3StaticStorage',  
+                    },
+                }
+
+
+
+        #s3 public media settings
+
+        PUBLIC_MEDIA_LOCATION = 'media'
+        MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+        #DEFAULT_FILE_STORAGE = 'core.storage_backends.MediaStore'
+
+        STATICFILES_DIRS = (os.path.join(BASE_DIR, 'build/static'),)
+        STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+        # from django.core.files.base import ContentFile
+        # from core.storage_backends import StaticStorage
+
+        # # Crear una instancia de StaticStorage
+        # storage = StaticStorage()
+
+        # # Definir el contenido del archivo
+        # file_content = b'Test content for the static file.'
+
+        # Guardar el archivo en S3
+        # file_path = storage.save('test_file.txt', ContentFile(file_content))
+
+        # print(f'Archivo subido: {file_path}')
+
     
-    DATABASES = {
-        "default": env.db("DATABASE_URL"),
-    }
-    DATABASES ["default"]["ATOMIC_REQUESTS"] = True
-
-    #AWS django-ckeditor will not work with s3 through django-storages without this line
-    AWS_QUERYSTRING_AUTH = False
-    AWS_ACCESS_KEY_ID=env('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY =env('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME=env('AWS_STORAGE_BUCKET_NAME')
-
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.us-east-2.amazonaws.com'
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl':'max-age-86400'}
-    AWS_DEFAULT_ACL='public-read'
-
-    #S3 static settings
-
-    STATIC_LOCATION = 'static'
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-    #s3 public media settings
-
-    PUBLIC_MEDIA_LOCATION = 'media'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-    DEFAULT_FILE_STORAGE = 'core.storage_backends.MediaStore'
-
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'build/static'),)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 
 
