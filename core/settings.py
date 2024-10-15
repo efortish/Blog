@@ -19,8 +19,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
+#ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
 
 
 # Application definition
@@ -160,7 +159,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT=os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 #STATIC_URL = 'static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -173,14 +172,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static')
     ]
 
-# STORAGES = {
-#     'default': {
-#         'BACKEND': 'django.core.files.storage.FileSystemStorage',  # Para archivos multimedia
-#     },
-#     'staticfiles': {
-#         'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',  # Para archivos estáticos
-#     },
-# }
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -196,8 +188,8 @@ REST_FRAMEWORK = {
 }
 
 
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV', default=[])
-CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
+#CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV', default=[])
+#CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 
 #Email
 
@@ -213,6 +205,10 @@ CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 ALLOWED_HOSTS=env.list("ALLOWED_HOSTS_DEPLOY")
 CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+]
 
 DATABASES = {
     "default": env.db("DATABASE_URL"),
@@ -236,7 +232,7 @@ AWS_DEFAULT_ACL='public-read'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'build/static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 STORAGES = {
@@ -253,8 +249,8 @@ STORAGES = {
 
 #s3 public media settings
 
-PUBLIC_MEDIA_LOCATION = 'media'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+#PUBLIC_MEDIA_LOCATION = 'media'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 #DEFAULT_FILE_STORAGE = 'core.storage_backends.MediaStore'
 
 
@@ -273,7 +269,7 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
 # file_path = storage.save('test_file.txt', ContentFile(file_content))
 
 # print(f'Archivo subido: {file_path}')
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+#ADMIN_MEDIA_PREFIX = '/static/admin/'
 
     
 
