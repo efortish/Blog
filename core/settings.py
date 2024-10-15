@@ -170,9 +170,11 @@ STATICFILES_DIRS = [
     ]
 
 STORAGES = {
-    # ...
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',  # Para archivos multimedia
+    },
+    'staticfiles': {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',  # Para archivos estáticos
     },
 }
 
