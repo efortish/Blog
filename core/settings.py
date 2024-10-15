@@ -160,6 +160,8 @@ USE_TZ = True
 
 STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -202,18 +204,43 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Prod
 
+
+
 if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    
     ALLOWED_HOSTS=env.list("ALLOWED_HOSTS_DEPLOY")
     CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
     CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
+    
     DATABASES = {
         "default": env.db("DATABASE_URL"),
     }
     DATABASES ["default"]["ATOMIC_REQUESTS"] = True
 
+    #AWS django-ckeditor will not work with s3 through django-storages without this line
+    AWS_QUERYSTRING_AUTH = False
+    AWS_ACCESS_KEY_ID = 'AKIAXKPUZ2CYUTUKCJJT'
+    AWS_SECRET_ACCESS_KEY='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'
+    AWS_STORAGE_BUCKET_NAME = 'ompets'
 
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.us-east-2.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl':'max-age-86400'}
+    AWS_DEFAULT_ACL='public-read'
+
+    #S3 static settings
+
+    STATIC_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3Boto3Storage'
+
+    #s3 public media settings
+
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'core.storage_backends.MediaStore'
+
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'build/static'),)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 
