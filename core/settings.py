@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = False
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
 
@@ -219,9 +219,9 @@ if not DEBUG:
 
     #AWS django-ckeditor will not work with s3 through django-storages without this line
     AWS_QUERYSTRING_AUTH = False
-    AWS_ACCESS_KEY_ID = 'AKIAXKPUZ2CYUTUKCJJT'
-    AWS_SECRET_ACCESS_KEY='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'
-    AWS_STORAGE_BUCKET_NAME = 'ompets'
+    AWS_ACCESS_KEY_ID=env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY =env('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME=env('AWS_STORAGE_BUCKET_NAME')
 
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.us-east-2.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl':'max-age-86400'}
