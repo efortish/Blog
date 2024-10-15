@@ -8,7 +8,7 @@ export default function ProductDetail() {
       
 
     
-        <div class="relative z-20  items-center overflow-hidden bg-white dark:bg-gray-800">
+        <div class="relative z-20  items-center overflow-hidden bg-white">
                 <div class="container relative flex px-6 py-10 mx-auto">
                     <div class="relative z-20 flex flex-col sm:w-3/5 md:w-3/5 lg:w-3/5">
                         
