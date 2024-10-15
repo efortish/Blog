@@ -18,10 +18,10 @@ export default function ProductDetail() {
                                 CBD - Sacha Inchi
                             </span>
                         </h1><br></br>
-                        <p class="text-sm text-gray-700 sm:text-base dark:text-white">
+                        <p class="text-sm text-gray-700 sm:text-base">
                         Descubre el poder natural de nuestro Aceite de Sacha Inchi con 0.72% de concentración de CBD, una fórmula refinada que combina los beneficios de los ácidos grasos omega 3, 6 y 9 con las propiedades nutritivas del extracto de cannabis, reconocido mundialmente por su eficacia.
                         </p><br></br>
-                        <p class="text-sm hidden lg:flex text-gray-700 sm:text-base dark:text-white">
+                        <p class="text-sm hidden lg:flex text-gray-700 sm:text-base">
                         El CBD es conocido por su capacidad para ofrecer un alivio duradero del dolor crónico y agudo, lo que puede ser especialmente útil para mascotas que padecen lesiones, artritis y otros tipos de dolor.<br></br><br></br>Este aceite también es eficaz para ayudar a las mascotas a superar el estrés y la ansiedad. Las propiedades del CBD han demostrado ser útiles en la regulación de estímulos relacionados con el dolor y el apetito, gracias a sus efectos antiinflamatorios y antioxidantes.<br></br><br></br>Además, el aceite de Sacha Inchi está formulado con activos naturales que ayudan a reconstituir el sistema biológico de las mascotas, fortaleciendo su salud y bienestar.
                         </p>
                         
@@ -29,7 +29,7 @@ export default function ProductDetail() {
                             <a href="/contacto" class="px-4 py-6 mr-4 text-white uppercase bg-pink-500 border-2 border-transparent rounded-lg text-md hover:bg-pink-400">
                                 Comprar
                             </a>
-                            <Link to='/blog/cbd' className="px-4 py-4 text-pink-500 uppercase bg-transparent border-2 border-pink-500 rounded-lg dark:text-white hover:bg-pink-500 hover:text-white text-md">
+                            <Link to='/blog/cbd' className="px-4 py-4 text-pink-500 uppercase bg-transparent border-2 border-pink-500 rounded-lg  hover:bg-pink-500 hover:text-white text-md">
                                 Leer más
                             </Link>
                             
@@ -40,10 +40,10 @@ export default function ProductDetail() {
                     </div>
                 </div>
                 <div class="container px-6 py-10 mx-auto lg:hidden">
-                <p class="text-sm text-gray-700 sm:text-base dark:text-white">
+                <p class="text-sm text-gray-700 sm:text-base ">
                 Este aceite también es eficaz para ayudar a las mascotas a superar el estrés y la ansiedad. Las propiedades del CBD han demostrado ser útiles en la regulación de estímulos relacionados con el dolor y el apetito, gracias a sus efectos antiinflamatorios y antioxidantes.
                 </p>
-                <p class="text-sm text-gray-700 sm:text-base dark:text-white mt-4">
+                <p class="text-sm text-gray-700 sm:text-base mt-4">
                 Además, el aceite de Sacha Inchi está formulado con activos naturales que ayudan a reconstituir el sistema biológico de las mascotas, fortaleciendo su salud y bienestar.
                 </p>
             </div>
