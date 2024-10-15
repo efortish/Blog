@@ -12,7 +12,7 @@ export default function ProductDetail() {
                 <div class="container relative flex px-6 py-10 mx-auto">
                     <div class="relative z-20 flex flex-col sm:w-3/5 md:w-3/5 lg:w-3/5">
                         
-                        <h1 class="flex flex-col text-4xl font-black leading-none text-gray-800 font-bebas-neue sm:text-5xl dark:text-white">
+                        <h1 class="flex flex-col text-4xl font-black leading-none text-gray-800 font-bebas-neue sm:text-5xl">
                             OM PETS
                             <span class="text-3xl sm:text-4xl">
                                 CBD - Sacha Inchi
