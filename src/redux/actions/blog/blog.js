@@ -18,8 +18,10 @@ export const get_blog_list = () => async dispatch => {
     };
 
     try{
+        console.log("API URL:", `${process.env.REACT_APP_API_URL}/api/category/list`);
 
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/list`, config)
+        
 
         if(res.status === 200){
             dispatch({
