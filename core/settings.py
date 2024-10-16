@@ -230,6 +230,7 @@ AWS_DEFAULT_ACL='public-read'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'build/static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
