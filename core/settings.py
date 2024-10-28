@@ -3,6 +3,7 @@
 from pathlib import Path
 import os
 import environ
+import dj_database_url
 env = environ.Env()
 environ.Env.read_env()
 
@@ -17,8 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
-
+DEBUG = False
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
 
 
@@ -31,9 +31,12 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 PROJECT_APPS = [
+    'apps.blog',
+    'apps.category'
 
 ]
 
@@ -41,7 +44,8 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'rest_framework',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'storages',
 
 ]
 
@@ -57,17 +61,20 @@ CKEDITOR_CONFIGS = {
             ['Link', 'Unlink'],
             ['RemoveFormat', 'Source']
         ],
-        'height': 300,
-        'width': 300,
+        # 'filebrowserUploadUrl': '/ckeditor/upload/',  # URL para subir archivos
+        # 'filebrowserBrowseUrl': '/ckeditor/browse/',  # URL para explorar archivos
         'autoparagraph':False
 
     },
 }
-CKEDITOR_UPLOAD_PATH = "/media/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -100,12 +107,22 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+# ESTA ES LA DEL LOCALHOST !!!!
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.sqlite3',
+#          'NAME': BASE_DIR / 'db.sqlite3',
+#      }
+#  }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+     'default': dj_database_url.config(
+         # Replace this value with your local database's connection string.
+         default=os.environ.get('DATABASE_URL'),
+         conn_max_age=600
+     )
+ }
 
 
 # Password validation
@@ -130,9 +147,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
@@ -144,14 +161,15 @@ USE_TZ = True
 
 STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'build/static'),)
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static')
-    ]
+
+
 
 
 # Default primary key field type
@@ -167,21 +185,91 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
+
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV', default=[])
+CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 
 #Email
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Prod
 
+
+
 if not DEBUG:
+    
     ALLOWED_HOSTS=env.list("ALLOWED_HOSTS_DEPLOY")
     CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
     CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
+    CORS_ALLOW_HEADERS = [
+        'authorization',
+        'content-type',
+    ]
+
     DATABASES = {
         "default": env.db("DATABASE_URL"),
     }
     DATABASES ["default"]["ATOMIC_REQUESTS"] = True
+
+    #AWS django-ckeditor will not work with s3 through django-storages without this line
+    AWS_QUERYSTRING_AUTH = False
+    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl':'max-age-86400'}
+    AWS_DEFAULT_ACL='public-read'
+
+    #S3 static settings
+
+    #STATIC_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'build/static'),)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+    STORAGES = {
+                "default": {
+                    "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+                },
+                #css y js
+                "staticfiles": {
+                    'BACKEND': 'storages.backends.s3boto3.S3StaticStorage',  
+                },
+            }
+
+
+
+    #s3 public media settings
+
+    #PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+    #DEFAULT_FILE_STORAGE = 'core.storage_backends.MediaStore'
+
+
+
+
+    # from django.core.files.base import ContentFile
+    # from core.storage_backends import StaticStorage
+
+    # # Crear una instancia de StaticStorage
+    # storage = StaticStorage()
+
+    # # Definir el contenido del archivo
+    # file_content = b'Test content for the static file.'
+
+    # Guardar el archivo en S3
+    # file_path = storage.save('test_file.txt', ContentFile(file_content))
+
+    # print(f'Archivo subido: {file_path}')
+    #ADMIN_MEDIA_PREFIX = '/static/admin/'
+
+    
+
+
